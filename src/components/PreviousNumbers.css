@@ -1,0 +1,17 @@
+.side-content {
+  font-size: 20px;
+  color: #ffffff;
+  display: flex;
+  gap: 20px;
+}
+
+.previous-number {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.opacity-0 { opacity: 1; }
+.opacity-1 { opacity: 0.8; }
+.opacity-2 { opacity: 0.6; }
+.opacity-3 { opacity: 0.4; }
+.opacity-4 { opacity: 0.2; }
