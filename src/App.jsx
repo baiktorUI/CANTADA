@@ -10,7 +10,7 @@ import { MESSAGES } from './constants/messages';
 import './App.css';
 
 const App = () => {
-  const { state, setState, selectNumber } = useBingoGame();
+  const { state, setState, selectNumber, undoLastSelection } = useBingoGame();
   const fireworksIntervalRef = useRef(null);
   const schoolPrideAnimationRef = useRef(null);
   const liniaCantadaFireworksRef = useRef(null);
@@ -18,11 +18,12 @@ const App = () => {
   useEffect(() => {
     const handleKeyPress = (event) => {
       const keyActions = {
-        // Enter ya no genera números aleatorios
         'l': () => toggleLiniaCantada(),
         'L': () => toggleLiniaCantada(),
         'q': () => toggleQuinaMessage(),
-        'Q': () => toggleQuinaMessage()
+        'Q': () => toggleQuinaMessage(),
+        'Backspace': () => undoLastSelection(),
+        'Delete': () => undoLastSelection()
       };
 
       const action = keyActions[event.key];
@@ -48,7 +49,7 @@ const App = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [state.showLiniaCantadaPersist]);
+  }, [state.showLiniaCantadaPersist, undoLastSelection]);
 
   useEffect(() => {
     if (state.showLiniaCantada) {
