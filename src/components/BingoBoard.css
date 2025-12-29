@@ -17,7 +17,9 @@
   border-radius: 50%;
   width: 70%;
   aspect-ratio: 1;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: default !important;
+  pointer-events: none !important;
 }
 
 .bingo-number.marked {
@@ -28,13 +30,4 @@
 
 .bingo-number.faded {
   opacity: 0.3;
-}
-
-.bingo-number.clickable {
-  cursor: pointer;
-}
-
-.bingo-number.clickable:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.1);
 }
