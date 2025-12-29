@@ -152,6 +152,18 @@ body, html {
   font-size: 25px;
 }
 
+/* Eliminar interactividad del ratón */
+.bingo-number {
+  cursor: default !important;
+  pointer-events: none !important;
+}
+
+.bingo-number:hover {
+  background-color: inherit !important;
+  transform: none !important;
+}
+
 .bingo-number.clickable {
-  cursor: pointer;
+  cursor: default !important;
+  pointer-events: none !important;
 }

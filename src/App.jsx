@@ -10,24 +10,33 @@ import { MESSAGES } from './constants/messages';
 import './App.css';
 
 const App = () => {
-  const { state, setState, selectNumber, undoLastSelection } = useBingoGame();
+  const { state, setState, drawNextNumber } = useBingoGame();
   const fireworksIntervalRef = useRef(null);
   const schoolPrideAnimationRef = useRef(null);
   const liniaCantadaFireworksRef = useRef(null);
 
+  // Log cuando se monta el componente
+  useEffect(() => {
+    console.log('App montado');
+  }, []);
+
   useEffect(() => {
     const handleKeyPress = (event) => {
-      const keyActions = {
-        'l': () => toggleLiniaCantada(),
-        'L': () => toggleLiniaCantada(),
-        'q': () => toggleQuinaMessage(),
-        'Q': () => toggleQuinaMessage(),
-        'Backspace': () => undoLastSelection(),
-        'Delete': () => undoLastSelection()
-      };
+      console.log('Tecla presionada:', event.key);
+      
+      const key = event.key.toLowerCase();
 
-      const action = keyActions[event.key];
-      if (action) action();
+      if (key === 'l') {
+        event.preventDefault();
+        toggleLiniaCantada();
+      } else if (key === 'q') {
+        event.preventDefault();
+        toggleQuinaMessage();
+      } else if (key === 'enter') {
+        event.preventDefault();
+        console.log('Enter detectado, llamando drawNextNumber');
+        drawNextNumber();
+      }
     };
 
     const toggleLiniaCantada = () => {
@@ -47,9 +56,13 @@ const App = () => {
       }));
     };
 
+    console.log('Listener de teclado añadido');
     window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [state.showLiniaCantadaPersist, undoLastSelection]);
+    return () => {
+      console.log('Listener de teclado eliminado');
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [state.showLiniaCantadaPersist, drawNextNumber, setState]);
 
   useEffect(() => {
     if (state.showLiniaCantada) {
@@ -90,7 +103,6 @@ const App = () => {
         <BingoBoard
           markedNumbers={state.markedNumbers}
           showQuinaMessage={state.showQuinaMessage}
-          onNumberClick={selectNumber}
         />
       </div>
 
